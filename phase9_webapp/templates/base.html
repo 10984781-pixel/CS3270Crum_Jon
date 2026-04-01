@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CS3270 Weather Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <main class="container">
+      <h1>CS3270 Weather Web App</h1>
+      <p class="subtitle">Phase 9: Flask + Jinja + SQLite + SQLAlchemy (3-tier)</p>
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

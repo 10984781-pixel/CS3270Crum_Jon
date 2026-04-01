@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h2>Search Weather Data</h2>
+  <form method="post" class="query-form">
+    <label for="location">Location</label>
+    <select id="location" name="location" required>
+      <option value="">Select a location</option>
+      {% for location in locations %}
+      <option value="{{ location }}" {% if location == selected_location %}selected{% endif %}>
+        {{ location }}
+      </option>
+      {% endfor %}
+    </select>
+
+    <label class="checkbox-row" for="rainy_only">
+      <input id="rainy_only" type="checkbox" name="rainy_only" {% if rainy_only %}checked{% endif %}>
+      Rainy days only
+    </label>
+
+    <button type="submit">Run Query</button>
+  </form>
+
+  {% if error %}
+  <p class="error">{{ error }}</p>
+  {% endif %}
+</section>
+
+{% if result %}
+<section class="card">
+  <h2>Results</h2>
+  <p>
+    Location: <strong>{{ result.location }}</strong> |
+    Total matches: <strong>{{ result.total_matches }}</strong> |
+    Rainy matches: <strong>{{ result.rainy_matches }}</strong> |
+    Avg Max Temp: <strong>{% if result.avg_max_temp is not none %}{{ result.avg_max_temp }} C{% else %}N/A{% endif %}</strong>
+  </p>
+
+  {% if result.rows %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Row ID</th>
+          <th>Location</th>
+          <th>MinTemp</th>
+          <th>MaxTemp</th>
+          <th>Rainfall</th>
+          <th>RainToday</th>
+          <th>RainTomorrow</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in result.rows %}
+        <tr>
+          <td>{{ row.row_id }}</td>
+          <td>{{ row.location }}</td>
+          <td>{{ row.min_temp }}</td>
+          <td>{{ row.max_temp }}</td>
+          <td>{{ row.rainfall }}</td>
+          <td>{{ row.rain_today }}</td>
+          <td>{{ row.rain_tomorrow }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if result.total_matches > result.rows|length %}
+  <p class="note">Showing first {{ result.rows|length }} rows only.</p>
+  {% endif %}
+  {% else %}
+  <p class="note">No matching rows for this filter.</p>
+  {% endif %}
+</section>
+{% endif %}
+
+<section class="card">
+  <h2>Saved Query History (SQLite)</h2>
+  {% if history %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Location</th>
+          <th>Rainy Only</th>
+          <th>Result Count</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in history %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.location }}</td>
+          <td>{% if item.rainy_only %}Yes{% else %}No{% endif %}</td>
+          <td>{{ item.result_count }}</td>
+          <td>{{ item.created_at }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="note">No saved queries yet.</p>
+  {% endif %}
+</section>
+{% endblock %}
