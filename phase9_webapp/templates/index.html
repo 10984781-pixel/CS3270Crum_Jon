@@ -36,6 +36,18 @@
     Rainy matches: <strong>{{ result.rainy_matches }}</strong> |
     Avg Max Temp: <strong>{% if result.avg_max_temp is not none %}{{ result.avg_max_temp }} C{% else %}N/A{% endif %}</strong>
   </p>
+  {% if result.predictions_available %}
+  <p>
+    ML model: <strong>{{ result.model_algorithm }}</strong> |
+    Validation accuracy: <strong>{% if result.model_validation_accuracy is not none %}{{ result.model_validation_accuracy }}{% else %}N/A{% endif %}</strong> |
+    Train rows used: <strong>{{ result.model_training_rows }}</strong> |
+    Predictable rows in this result: <strong>{{ result.predictable_rows }}</strong> |
+    Predicted rain tomorrow: <strong>{{ result.predicted_rain_tomorrow }}</strong>
+    {% if result.predicted_rain_pct is not none %}({{ result.predicted_rain_pct }}%){% endif %}
+  </p>
+  {% elif result.model_error %}
+  <p class="note">Prediction model unavailable: {{ result.model_error }}</p>
+  {% endif %}
 
   {% if result.rows %}
   <div class="table-wrap">
@@ -49,6 +61,7 @@
           <th>Rainfall</th>
           <th>RainToday</th>
           <th>RainTomorrow</th>
+          <th>PredictedRainTomorrow</th>
         </tr>
       </thead>
       <tbody>
@@ -61,6 +74,7 @@
           <td>{{ row.rainfall }}</td>
           <td>{{ row.rain_today }}</td>
           <td>{{ row.rain_tomorrow }}</td>
+          <td>{{ row.predicted_rain_tomorrow }}</td>
         </tr>
         {% endfor %}
       </tbody>
