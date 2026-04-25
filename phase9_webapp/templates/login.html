@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="panel login-panel">
+  <h2>Login</h2>
+
+  {% if error %}
+  <p class="error">{{ error }}</p>
+  {% endif %}
+
+  <form method="post" action="{{ url_for('login') }}" class="form-grid">
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" required>
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <p class="hint">Demo login: <strong>student</strong> / <strong>CS3270!</strong></p>
+</section>
+{% endblock %}

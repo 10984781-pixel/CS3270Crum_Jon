@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="header-row">
+  <p>Logged in as <strong>{{ username }}</strong></p>
+  <form method="post" action="{{ url_for('logout') }}">
+    <button type="submit" class="secondary">Logout</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>Upload CSV</h2>
+  <p>Upload Australian weather data</p>
+  <form id="upload-form" class="inline-form">
+    <input type="file" id="csv-file" name="file" accept=".csv" required>
+    <button type="submit">Upload</button>
+  </form>
+  <p id="upload-message" class="status"></p>
+</section>
+
+<section id="dashboard-panel" class="panel hidden">
+  <h2>Interactive Dashboard</h2>
+
+  <div class="button-row">
+    <button type="button" class="category-btn" data-category="temperature">Temperature Trends</button>
+    <button type="button" class="category-btn" data-category="rainfall">Rainfall Patterns</button>
+    <button type="button" class="category-btn" data-category="extreme">Extreme Indicators</button>
+  </div>
+
+  <div id="city-controls" class="controls hidden">
+    <label for="city-select">City</label>
+    <select id="city-select"></select>
+  </div>
+
+  <div id="chart" class="chart-box"></div>
+  <p id="summary" class="summary"></p>
+</section>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+{% endblock %}

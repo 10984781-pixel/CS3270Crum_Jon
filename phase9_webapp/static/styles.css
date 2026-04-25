@@ -1,35 +1,151 @@
+:root {
+  --primary: #1f4f86;
+  --primary-dark: #173a62;
+  --bg: #eef2f7;
+  --panel: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --danger: #b91c1c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  margin: 16px;
-  font-family: sans-serif;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
 
-h1 {
-  margin-bottom: 4px;
+.topbar {
+  background: var(--primary);
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
 }
 
-.subtitle {
-  margin-top: 0;
-  color: #444;
+.topbar h1 {
+  margin: 0;
 }
 
-.card {
-  margin-bottom: 16px;
+.container {
+  max-width: 980px;
+  margin: 1.5rem auto;
+  padding: 0 1rem 2rem;
 }
 
-table {
-  border-collapse: collapse;
+.panel {
+  background: var(--panel);
+  border: 1px solid #d6dbe4;
+  border-radius: 8px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
 }
 
-th,
-td {
-  border: 1px solid #999;
-  padding: 4px 6px;
+.login-panel {
+  max-width: 420px;
+  margin: 1.5rem auto;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.inline-form {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+input,
+select,
+button {
+  padding: 0.55rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #c4ccd8;
+  border-radius: 6px;
+}
+
+button {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--primary-dark);
+}
+
+button.secondary {
+  background: #4b5563;
+  border-color: #4b5563;
+}
+
+.button-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.category-btn.active {
+  outline: 3px solid #93c5fd;
+}
+
+.controls {
+  margin-bottom: 1rem;
+}
+
+.chart-box {
+  min-height: 380px;
+  border: 1px solid #d6dbe4;
+  border-radius: 8px;
+  background: #fafcff;
+}
+
+.summary {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.status {
+  color: var(--muted);
 }
 
 .error {
-  color: #b00020;
+  color: var(--danger);
+  font-weight: 600;
 }
 
-.note {
-  color: #444;
+.hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .topbar h1 {
+    font-size: 1.5rem;
+  }
 }
